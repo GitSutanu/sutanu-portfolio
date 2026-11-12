@@ -7,7 +7,7 @@
 window.SUTANU_EMAILJS = {
   PUBLIC_KEY: "P3Ut3NVOO5WoDBBFn",
   SERVICE_ID: "service_p4jjhqm",
-  TEMPLATE_ID: "template_3z7rapz"
+  TEMPLATE_ID: "template_ismat1p"
 };
 
 // Existing Google Apps Script endpoint is used for newsletter storage.

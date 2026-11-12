@@ -20,6 +20,7 @@ export const profile = {
   cv: { file: "Sutanu_Ghosh_Resume.docx", pdf: "Sutanu_Ghosh_Resume.pdf" },
 };
 
+
 export const navItems = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
