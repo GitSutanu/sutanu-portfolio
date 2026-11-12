@@ -1,0 +1,72 @@
+.pgroup + .pgroup { margin-top: clamp(64px, 9vw, 120px); }
+.pgroup__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; padding-bottom: 18px; margin-bottom: 28px; border-bottom: 2px solid var(--ink); }
+.pgroup__head h3 { font-size: clamp(1.6rem, 3.4vw, 2.5rem); }
+.pgroup__head p { color: var(--mute); max-width: 46ch; font-size: .95rem; }
+.pgrid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 22px; }
+
+.pcard { --mx: 0; --my: 0; grid-column: span var(--span, 2); display: flex; flex-direction: column; border: 2px solid var(--ink); background: var(--paper); border-radius: 4px 22px 4px 4px; overflow: hidden; transition: box-shadow .4s var(--ease); }
+.pcard:hover, .pcard:focus-within { box-shadow: 8px 8px 0 var(--taxi), 8px 8px 0 2px var(--ink); }
+.pcard__preview { display: block; padding: 14px; background: var(--paper-2); border-bottom: 2px solid var(--ink); }
+.pcard__body { display: flex; flex-direction: column; gap: 10px; padding: 22px; flex: 1; }
+.pcard__cat { color: var(--teal); font-weight: 700; font-size: .9rem; }
+.pcard h4 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); }
+.pcard__desc { color: var(--ink-2); font-size: .97rem; }
+.pcard__meta { display: grid; gap: 6px; font-size: .9rem; }
+.pcard__meta div { display: grid; grid-template-columns: 5.2rem 1fr; gap: 10px; }
+.pcard__meta dt { color: var(--mute); font-weight: 600; }
+.pcard__tech { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.pcard__tech li { font-size: .78rem; font-weight: 700; padding: 3px 10px; border: 1.5px solid var(--ink); border-radius: 99px; }
+.pcard__link { margin-top: auto; padding-top: 12px; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; border-top: 1px solid var(--line); }
+.pcard__link span:first-child { background: linear-gradient(var(--taxi), var(--taxi)) 0 100% / 100% 3px no-repeat; transition: background-size .3s var(--ease); }
+.pcard__link:hover span:first-child { background-size: 100% 100%; }
+
+/* Abstract browser mockup */
+.mock { border: 2px solid var(--ink); border-radius: 8px; overflow: hidden; background: #fff; }
+.mock__bar { display: flex; align-items: center; gap: 5px; padding: 8px 10px; background: var(--ink); }
+.mock__bar i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, .35); }
+.mock__bar span { margin-left: 8px; flex: 1; min-width: 0; font-size: .7rem; color: var(--paper); background: rgba(255, 255, 255, .12); border-radius: 4px; padding: 2px 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mock__body { height: clamp(180px, 20vw, 240px); position: relative; overflow: hidden; background: var(--paper); }
+.mock__layer { position: absolute; inset: 0; padding: 12px; display: flex; flex-direction: column; gap: 10px; transform: translate3d(calc(var(--mx) * -6px), calc(var(--my) * -5px), 0); transition: transform .5s var(--ease); }
+.m-float { transform: translate3d(calc(var(--mx) * 12px), calc(var(--my) * 9px), 0); transition: transform .5s var(--ease); }
+.m-nav { display: flex; align-items: center; gap: 8px; }
+.m-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--a); }
+.m-line { display: block; height: 7px; border-radius: 4px; background: rgba(19, 22, 27, .55); width: 40px; }
+.m-pill { margin-left: auto; width: 44px; height: 14px; border-radius: 99px; background: var(--b); }
+.m-hero { background: var(--a); border-radius: 6px; padding: 14px; display: grid; gap: 8px; min-height: 62px; }
+.m-hero .m-line { background: rgba(255, 255, 255, .85); }
+.m-hero--wide { min-height: 86px; }
+.m-btn { display: block; width: 54px; height: 16px; border-radius: 99px; background: var(--b); margin-left: auto; }
+.m-hero .m-btn { margin: 4px 0 0; }
+.m-panel { background: #fff; border: 2px solid var(--ink); border-radius: 8px; padding: 8px; display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 6px; margin-top: -26px; align-items: center; }
+.m-field { height: 18px; border-radius: 4px; background: var(--paper-2); border: 1px solid var(--line); }
+.m-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.m-card { display: block; height: 34px; border-radius: 6px; background: var(--paper-2); border: 1.5px solid var(--ink); }
+.m-row .m-card:nth-child(2) { background: var(--b); }
+.m-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; flex: 1; }
+.m-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.m-prod { border-radius: 6px; border: 1.5px solid var(--ink); background: linear-gradient(135deg, var(--a) 0 45%, var(--paper-2) 45%); }
+.m-prod:nth-child(3n) { background: linear-gradient(135deg, var(--b) 0 45%, var(--paper-2) 45%); }
+.m-banner { height: 56px; border-radius: 6px; background: linear-gradient(100deg, var(--a), var(--b)); }
+.m-dishes { display: flex; gap: 10px; justify-content: center; margin-top: 6px; }
+.m-dishes i { width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--ink); background: var(--a); }
+.m-dishes i:nth-child(even) { background: var(--b); }
+.m-list { display: grid; gap: 8px; }
+.m-dash { display: grid; grid-template-columns: 38px 1fr; gap: 10px; height: 100%; margin: -12px; padding: 0; }
+.m-side { background: var(--a); padding: 12px 8px; display: grid; gap: 8px; align-content: start; }
+.m-side i { height: 8px; border-radius: 4px; background: rgba(255, 255, 255, .8); }
+.m-main { padding: 12px 12px 12px 0; display: flex; flex-direction: column; gap: 10px; }
+.m-bars { flex: 1; display: flex; align-items: flex-end; gap: 6px; border: 1.5px solid var(--ink); border-radius: 6px; padding: 8px; background: #fff; }
+.m-bars i { flex: 1; background: var(--b); border-radius: 3px 3px 0 0; }
+.m-bars i:nth-child(odd) { background: var(--a); }
+
+@media (max-width: 1020px) {
+  .pgrid { grid-template-columns: repeat(2, 1fr); }
+  .pcard { grid-column: span 1; }
+  .pcard:last-child:nth-child(odd) { grid-column: span 2; }
+}
+@media (max-width: 640px) {
+  .pgrid { grid-template-columns: 1fr; }
+  .pcard, .pcard:last-child:nth-child(odd) { grid-column: span 1; }
+  .pcard:hover, .pcard:focus-within { box-shadow: 5px 5px 0 var(--taxi), 5px 5px 0 2px var(--ink); }
+}
+@media (hover: none) { .mock__layer, .m-float { transform: none !important; } }

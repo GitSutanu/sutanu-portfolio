@@ -1,0 +1,51 @@
+.hero { position: relative; min-height: 100svh; display: flex; align-items: center; padding: 130px 0 90px; overflow: hidden; isolation: isolate; }
+.hero__particles { position: absolute !important; inset: 0; z-index: 1; pointer-events: auto; }
+.hero__particles canvas { display: block; width: 100%; height: 100%; }
+.hero__stage { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.hero__disc { position: absolute; right: clamp(12px, 3.5vw, 54px); top: 13vh; width: clamp(260px, 39vw, 560px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #FFE28A 0%, var(--taxi) 44%, #D99B00 100%); opacity: .96; box-shadow: 0 28px 90px rgba(117, 83, 0, .18), inset -18px -22px 45px rgba(94, 62, 0, .12); }
+.hero__disc::after { content: ""; position: absolute; inset: 7%; border: 1px solid rgba(19,22,27,.22); border-radius: 50%; transform: rotate(-22deg) scaleX(1.08); }
+.shape { position: absolute; display: block; }
+.shape--ring { right: 38vw; top: 20vh; width: 86px; height: 86px; border: 3px solid var(--teal); border-radius: 50%; }
+.shape--square { right: 12vw; bottom: 16vh; width: 64px; height: 64px; border: 3px solid var(--ink); transform: rotate(14deg); }
+.shape--dot { left: 6vw; bottom: 18vh; width: 22px; height: 22px; background: var(--brick); border-radius: 50%; }
+
+.hero__inner { position: relative; z-index: 2; }
+.hero__name { font-size: clamp(3.4rem, 15.5vw, 13rem); font-weight: 800; line-height: .84; letter-spacing: -.055em; margin-bottom: 18px; }
+.hero__name .line { display: block; overflow: hidden; padding: .06em 0; }
+.hero__name .char { display: inline-block; will-change: transform; }
+.hero__name .line:nth-child(2) { padding-left: clamp(0px, 8vw, 140px); }
+.hero__role { display: inline-block; background: var(--ink); color: var(--paper); font-family: var(--f-display); font-weight: 700; font-size: clamp(.95rem, 2vw, 1.5rem); letter-spacing: .02em; padding: 8px 18px; margin-bottom: 28px; }
+.hero__quote { font-family: var(--f-display); font-size: clamp(1.35rem, 2.6vw, 2.1rem); line-height: 1.2; letter-spacing: -.02em; max-width: 24ch; margin-bottom: 18px; }
+.hero__intro { max-width: 56ch; color: var(--ink-2); margin-bottom: 32px; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.hero__badge { position: absolute; z-index: 2; right: clamp(22px, 5vw, 72px); bottom: 58px; width: clamp(104px, 11vw, 150px); animation: spin 26s linear infinite; filter: drop-shadow(0 8px 16px rgba(19,22,27,.14)); }
+.hero__badge text { font-family: var(--f-body); font-size: 11.2px; font-weight: 700; fill: var(--ink); letter-spacing: .06em; }
+.badge__core { fill: var(--ink); }
+.badge__arrow { stroke: var(--taxi); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.hero__scroll { position: absolute; z-index: 2; left: var(--pad); bottom: 26px; display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: .85rem; }
+.hero__scroll-line { width: 2px; height: 48px; background: var(--line); position: relative; overflow: hidden; }
+.hero__scroll-line::after { content: ""; position: absolute; left: 0; top: -50%; width: 100%; height: 50%; background: var(--ink); animation: drip 1.8s var(--ease) infinite; }
+@keyframes drip { to { top: 100%; } }
+
+/* Marquee: Kolkata taxi checker band */
+.marquee { background: var(--taxi); border-block: 2px solid var(--ink); overflow: hidden; position: relative; }
+.marquee::after { content: ""; position: absolute; inset: auto 0 0 0; height: 8px; background: repeating-conic-gradient(var(--ink) 0 25%, transparent 0 50%) 0 0 / 16px 16px; }
+.marquee__track { display: flex; width: max-content; padding: 16px 0 24px; animation: marquee 38s linear infinite; }
+.marquee__set { display: flex; flex-shrink: 0; }
+.marquee__set li { font-family: var(--f-display); font-weight: 700; font-size: clamp(1.1rem, 2.2vw, 1.6rem); white-space: nowrap; padding-right: 36px; display: flex; align-items: center; gap: 36px; }
+.marquee__set li::after { content: ""; width: 12px; height: 12px; background: var(--ink); transform: rotate(45deg); }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+@media (max-width: 760px) {
+  .hero { padding-top: 120px; align-items: flex-start; }
+  .hero__disc { width: min(78vw, 390px); right: -24vw; top: 8vh; opacity: .62; }
+  .hero__name .line:nth-child(2) { padding-left: 0; }
+  .hero__badge { display: none; }
+  .hero__scroll { display: none; }
+  .hero__actions .btn { flex: 1 1 100%; }
+  .shape--ring { right: 10vw; top: 54vh; }
+}
+@media (prefers-reduced-motion: reduce) { .marquee__track, .hero__badge { animation: none; } .marquee { overflow-x: auto; } }
