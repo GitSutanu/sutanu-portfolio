@@ -115,21 +115,54 @@
     dobBtn.addEventListener("click", function () { shown = !shown; renderDob(); }); renderDob();
   }
 
-  /* ---------- Project filters ---------- */
-  var cards = $$(".pcard"), fbtns = $$(".filters button");
+  /* ---------- Project filters + Load more / Show less ---------- */
+  var grid = $("#pgrid"), cards = $$(".pcard"), fbtns = $$(".filters button");
+  var moreWrap = $("#pmore"), moreBtn = $("#pmore-btn"), moreLabel = $(".pmore__label"), moreCount = $("#pmore-count");
+  var currentKey = "all", expanded = false, busy = false;
+  var LOAD_MS = reduced ? 250 : 1200; /* short loader before more projects appear */
+  function perPage() { return Math.max(4, getComputedStyle(grid).gridTemplateColumns.split(" ").length * 2); } /* 2 rows */
+  function render(animateNew) {
+    var limit = perPage(), total = 0, shown = 0, fresh = [];
+    cards.forEach(function (c) {
+      var match = currentKey === "all" || c.dataset.cat === currentKey;
+      c.classList.toggle("is-hidden", !match);
+      if (!match) { c.classList.remove("is-collapsed"); return; }
+      total++;
+      var collapse = !expanded && total > limit, was = c.classList.contains("is-collapsed");
+      c.classList.toggle("is-collapsed", collapse);
+      if (!collapse) { shown++; if (animateNew && was) fresh.push(c); }
+    });
+    moreWrap.hidden = total <= limit;
+    moreLabel.textContent = expanded ? "Show less" : "Load more projects";
+    moreBtn.setAttribute("aria-expanded", String(expanded));
+    moreCount.textContent = "Showing " + shown + " of " + total + " projects";
+    if (animate && fresh.length) gsap.fromTo(fresh, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .55, stagger: .06, ease: "power3.out", clearProps: "transform,opacity" });
+    if (hasGsap) ScrollTrigger.refresh();
+  }
   fbtns.forEach(function (b) {
     b.addEventListener("click", function () {
+      if (busy) return;
       fbtns.forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
-      var key = b.dataset.filter;
       var apply = function () {
-        cards.forEach(function (c) { c.classList.toggle("is-hidden", key !== "all" && c.dataset.cat !== key); });
-        var vis = cards.filter(function (c) { return !c.classList.contains("is-hidden"); });
+        currentKey = b.dataset.filter; expanded = false; render(false);
+        var vis = cards.filter(function (c) { return !c.classList.contains("is-hidden") && !c.classList.contains("is-collapsed"); });
         if (animate) gsap.fromTo(vis, { opacity: 0, y: 18, scale: .97 }, { opacity: 1, y: 0, scale: 1, duration: .5, stagger: .05, ease: "power3.out", clearProps: "transform,opacity" });
-        if (hasGsap) ScrollTrigger.refresh();
       };
-      if (animate) gsap.to(cards.filter(function (c) { return !c.classList.contains("is-hidden"); }), { opacity: 0, y: -10, duration: .18, onComplete: apply }); else apply();
+      var now = cards.filter(function (c) { return !c.classList.contains("is-hidden") && !c.classList.contains("is-collapsed"); });
+      if (animate) gsap.to(now, { opacity: 0, y: -10, duration: .18, onComplete: apply }); else apply();
     });
   });
+  moreBtn.addEventListener("click", function () {
+    if (busy) return;
+    if (expanded) { expanded = false; render(false); goTo("projects"); return; } /* Show less: collapse and go back to the top of the section */
+    busy = true; moreBtn.disabled = true; moreBtn.classList.add("is-loading"); moreBtn.setAttribute("aria-busy", "true"); moreLabel.textContent = "Loading…";
+    setTimeout(function () {
+      expanded = true; busy = false; moreBtn.disabled = false; moreBtn.classList.remove("is-loading"); moreBtn.removeAttribute("aria-busy");
+      render(true);
+    }, LOAD_MS);
+  });
+  var rsT; window.addEventListener("resize", function () { clearTimeout(rsT); rsT = setTimeout(function () { if (!busy) render(false); }, 200); });
+  render(false);
 
   /* ---------- Card hover: spotlight, mock parallax, cursor label ---------- */
   cards.forEach(function (card) {
@@ -257,7 +290,7 @@
       var inner2 = pt.firstElementChild; if (inner2) gsap.fromTo(inner2, { y: -22 }, { y: 22, ease: "none", scrollTrigger: { trigger: pt, start: "top bottom", end: "bottom top", scrub: true } });
     }
     // Project previews: clip-path wipe
-    $$(".pcard .mock").forEach(function (m) { gsap.from(m, { clipPath: "inset(0 0 100% 0)", duration: 1, ease: "power4.inOut", scrollTrigger: { trigger: m, start: "top 94%", once: true } }); });
+    $$(".pcard:not(.is-collapsed) .mock").forEach(function (m) { gsap.from(m, { clipPath: "inset(0 0 100% 0)", duration: 1, ease: "power4.inOut", scrollTrigger: { trigger: m, start: "top 94%", once: true } }); });
     // Timeline progress + dots
     var tl = $(".tl");
     if (tl) {

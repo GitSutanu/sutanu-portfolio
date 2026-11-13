@@ -77,3 +77,13 @@ html.has-cursor input, html.has-cursor textarea, html.has-cursor select { cursor
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+/* ===== Theme-aware scrollbar ===== */
+html { scrollbar-gutter: stable; }
+html::-webkit-scrollbar, body::-webkit-scrollbar, .drawer::-webkit-scrollbar { width: 12px; height: 12px; }
+html::-webkit-scrollbar-track, .drawer::-webkit-scrollbar-track { background: var(--bg); }
+html::-webkit-scrollbar-thumb, .drawer::-webkit-scrollbar-thumb { background: var(--line-strong); border: 3px solid var(--bg); border-radius: 99px; }
+html::-webkit-scrollbar-thumb:hover, .drawer::-webkit-scrollbar-thumb:hover { background: var(--teal); }
+html::-webkit-scrollbar-thumb:active, .drawer::-webkit-scrollbar-thumb:active { background: var(--accent); }
+/* Firefox */
+@supports (-moz-appearance: none) { html, .drawer { scrollbar-width: thin; scrollbar-color: var(--line-strong) var(--bg); } }
