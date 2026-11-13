@@ -1,20 +1,16 @@
 /* =========================================================
-   SITE CONFIGURATION
-   Update these values before publishing.
+   SITE CONFIGURATION: edit values here before publishing
    ========================================================= */
 
-// EmailJS: create a service + email template at https://dashboard.emailjs.com/
+// EmailJS (https://dashboard.emailjs.com/). The Template ID must exist in the SAME account
+// as the Service ID and Public Key, otherwise EmailJS returns "template ID not found".
 window.SUTANU_EMAILJS = {
   PUBLIC_KEY: "P3Ut3NVOO5WoDBBFn",
   SERVICE_ID: "service_p4jjhqm",
   TEMPLATE_ID: "template_ismat1p"
 };
 
-// Existing Google Apps Script endpoint is used for newsletter storage.
-// Paste your deployed Web App URL (ending in /exec). Leave blank until deployed.
-window.SUTANU_NEWSLETTER = {
-  APPS_SCRIPT_URL: "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"
-};
-
-// Optional profile photo: place profile.jpg inside assets/images/ and set true.
+// true = date of birth is visible by default (visitors can hide it with the eye button).
 window.SUTANU_SHOW_DOB = true;
+
+// Profile photo: put a file named profile.jpg in assets/images/ (a "SG" monogram shows until then).
